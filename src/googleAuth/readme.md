@@ -25,7 +25,9 @@ pros:
 - more flexible than identity
 - can revoke token
 - can work in any web app
+
   cons:
+
 - manual token management
 - manual data management
 
