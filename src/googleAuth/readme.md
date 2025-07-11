@@ -26,7 +26,7 @@ pros:
 - can revoke token
 - can work in any web app
 
-  cons:
+cons:
 
 - manual token management
 - manual data management
