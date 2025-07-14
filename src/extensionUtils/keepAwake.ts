@@ -11,6 +11,12 @@ export function updateActivityTime() {
   lastActivityTime = Date.now();
 }
 
+/**
+ * Keeps the screen and system awake.
+ * @param type - The type of keep awake to use. @default "both"
+ * @returns void
+ */
+
 export function keepAwake(type: KeepAwakeType = "both") {
   chrome.alarms.getAll().then((alarms) => {
     const currentAlarm = alarms.find(
@@ -58,6 +64,11 @@ export function keepAwake(type: KeepAwakeType = "both") {
     chrome.power.requestKeepAwake(powerLevel);
   });
 }
+
+/**
+ * Allows the screen and system to sleep.
+ * @returns void
+ */
 
 export function allowToSleep() {
   chrome.alarms.clear(Alarms.keepAwakeScreenAlarm);

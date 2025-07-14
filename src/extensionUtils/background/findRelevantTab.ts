@@ -1,7 +1,7 @@
 /**
  * @description findRelevantTab is a function that finds the most relevant tab based on the url pattern.
  * @param {string} urlPattern - The url pattern to find the tab by.
- * @param {boolean} preferActive - Whether to prefer the active tab.
+ * @param {boolean} preferActive - Whether to prefer the active tab. @default true
  * @returns {Promise<chrome.tabs.Tab | null>} A promise that resolves to the tab.
  */
 
