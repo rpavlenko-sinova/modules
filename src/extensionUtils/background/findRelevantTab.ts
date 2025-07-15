@@ -9,26 +9,25 @@ function findRelevantTab({
   urlPattern,
   preferActive = true,
 }: {
-  urlPattern: string
-  preferActive?: boolean
+  urlPattern: string;
+  preferActive?: boolean;
 }): Promise<chrome.tabs.Tab | null> {
-  return new Promise((resolve) => {
-    chrome.tabs.query({ url: urlPattern }, (tabs) => {
-      if (tabs.length === 0) return resolve(null)
+  return new Promise(async (resolve) => {
+    const tabs = await chrome.tabs.query({ url: urlPattern });
+    if (tabs.length === 0) return null;
 
-      let tab: chrome.tabs.Tab | undefined
+    let tab: chrome.tabs.Tab | undefined;
 
-      if (preferActive) {
-        tab = tabs.find((t) => t.active)
-      }
+    if (preferActive) {
+      tab = tabs.find((t) => t.active);
+    }
 
-      if (!tab) {
-        tab = tabs.reduce((latest, t) =>
-          (t.id ?? 0) > (latest.id ?? 0) ? t : latest
-        )
-      }
+    if (!tab) {
+      tab = tabs.reduce((latest, t) =>
+        (t.id ?? 0) > (latest.id ?? 0) ? t : latest
+      );
+    }
 
-      resolve(tab ?? null)
-    })
-  })
+    return tab ?? null;
+  });
 }

@@ -84,6 +84,7 @@ export class AuthService {
     }
 
     try {
+      // !!!IMPORTANT: This build uses localStorage to store tokens. Swap for something else in extensions
       const storedTokens = localStorage.getItem(TOKEN_STORAGE_KEY);
       if (!storedTokens) {
         return null;
