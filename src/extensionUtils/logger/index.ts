@@ -9,7 +9,7 @@ log.setLevel(log.levels.TRACE);
 /**
  * Handles logging messages from different sources.
  * This is ready handler for Plasmo messaging, to be set up in the background script.
- * To use in content scripts, you can copy just function and use it.
+ * To use in content scripts, you can copy just function and use it inside of message listener.
  *
  * @param req - The request object containing the log message
  * @returns void
