@@ -1,4 +1,4 @@
-import { withValidToken } from "../googleAuth/fetchAuthFlow/withValidToken";
+import { withValidToken } from "../../googleAuth/fetchAuthFlow/withValidToken";
 
 /**
  * @description addTextToTheEnd is a function that adds text to the end of a Google Doc. Requires user to be logged in via auth flow.

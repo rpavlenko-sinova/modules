@@ -1,4 +1,4 @@
-import { withValidToken } from "../googleAuth/fetchAuthFlow/withValidToken";
+import { withValidToken } from "../../googleAuth/fetchAuthFlow/withValidToken";
 
 /**
  * @description createGoogleDoc is a function that creates a new Google Doc. Requires user to be logged in via auth flow.
@@ -6,15 +6,17 @@ import { withValidToken } from "../googleAuth/fetchAuthFlow/withValidToken";
  * @returns {Promise<string>} The ID of the new Google Doc.
  */
 
-export default async function createGoogleDoc(title = 'My New Document'): Promise<string> {
+export default async function createGoogleDoc(
+  title = "My New Document"
+): Promise<string> {
   const requestBody = { title };
 
   const doc = await withValidToken(async (token) => {
-    const res = await fetch('https://docs.googleapis.com/v1/documents', {
-      method: 'POST',
+    const res = await fetch("https://docs.googleapis.com/v1/documents", {
+      method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(requestBody),
     });
