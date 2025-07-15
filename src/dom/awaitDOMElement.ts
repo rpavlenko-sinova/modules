@@ -24,7 +24,27 @@ export const awaitDOMElement = ({
       return;
     }
 
-    const element = document.querySelector<HTMLElement>(selector);
+    const getParentElement = (): HTMLElement | null => {
+      if (!parentElement) {
+        return document.body;
+      }
+
+      if (typeof parentElement === "string") {
+        return document.querySelector<HTMLElement>(parentElement);
+      }
+
+      return parentElement;
+    };
+
+    const queryElement = (): HTMLElement | null => {
+      const parent = getParentElement();
+      if (!parent) {
+        return document.querySelector<HTMLElement>(selector);
+      }
+      return parent.querySelector<HTMLElement>(selector);
+    };
+
+    const element = queryElement();
 
     if (element) {
       resolve(element);
@@ -35,7 +55,7 @@ export const awaitDOMElement = ({
     const maxAttempts = maxRetries || 5;
     const retryInterval = retryIntervalMS || 1000;
     const interval = window.setInterval(() => {
-      const element = document.querySelector<HTMLElement>(selector);
+      const element = queryElement();
       if (element) {
         resolve(element);
         clearInterval(interval);
