@@ -89,11 +89,11 @@ export async function addDataToSheet<T extends Record<string, any>>(
     for (let i = 0; i < items.length; i++) {
       const rowIndex = rowOffset + i;
 
-      for (const col of formulaColumns) {
+      formulaColumns.forEach((col) => {
         const columnLetter = getColumnLetter(headers, col.columnKey);
         const cell = sheetInstance.getCellByA1(`${columnLetter}${rowIndex}`);
         cell.formula = col.formula(rowIndex, headers, getColumnLetter);
-      }
+      });
     }
 
     await sheetInstance.saveUpdatedCells();

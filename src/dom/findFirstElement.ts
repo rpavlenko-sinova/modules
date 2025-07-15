@@ -47,14 +47,16 @@ export async function findFirstElement({
     const arrayOfElements = Array.from(allElements);
 
     for (const text of innerTextOptions) {
-      for (const element of arrayOfElements) {
-        if (element.textContent?.trim() === text) {
-          const uniqueSelector = generateUniqueSelector(element as Element);
-          return {
-            element: element as Element,
-            selector: uniqueSelector,
-          };
-        }
+      const element = arrayOfElements.find(
+        (element) => element.textContent?.trim() === text
+      );
+
+      if (element) {
+        const uniqueSelector = generateUniqueSelector(element);
+        return {
+          element,
+          selector: uniqueSelector,
+        };
       }
     }
   }

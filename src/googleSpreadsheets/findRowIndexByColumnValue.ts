@@ -32,16 +32,12 @@ export async function findRowIndexByColumnValue(
       throw new Error(`Column "${columnName}" not found in the sheet headers`);
     }
 
-    for (let i = 0; i < rows.length; i++) {
-      const row = rows[i];
+    const foundRow = rows.find((row) => {
       const cellValue = row.get(columnName);
+      return searchValue === cellValue;
+    });
 
-      if (searchValue === cellValue) {
-        return i + HEADER_ROW;
-      }
-    }
-
-    return -1;
+    return foundRow ? foundRow.rowNumber : -1;
   } catch (error) {
     console.error("Error finding row:", error);
     throw error;

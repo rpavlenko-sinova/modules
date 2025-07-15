@@ -25,9 +25,7 @@ export async function reloadTabByUrl(url: string) {
  */
 
 export async function reloadTabsById(tabIds: number[]) {
-  for (const tabId of tabIds) {
-    await chrome.tabs.reload(tabId);
-  }
+  await Promise.all(tabIds.map((tabId) => chrome.tabs.reload(tabId)));
 }
 
 /**
@@ -37,11 +35,9 @@ export async function reloadTabsById(tabIds: number[]) {
 
 export async function reloadMultipleTabsByUrl(urls: string[]) {
   const tabs = await chrome.tabs.query({ url: urls });
-  for (const tab of tabs) {
-    if (tab.id != null) {
-      await reloadTab(tab.id);
-    }
-  }
+  await Promise.all(
+    tabs.map((tab) => (tab.id ? reloadTab(tab.id) : Promise.resolve()))
+  );
 }
 
 /**
@@ -51,13 +47,7 @@ export async function reloadMultipleTabsByUrl(urls: string[]) {
 export async function reloadAllTabs() {
   const tabs = await chrome.tabs.query({});
 
-  for (const tab of tabs) {
-    if (tab.id != null) {
-      try {
-        await chrome.tabs.reload(tab.id);
-      } catch (e) {
-        console.warn(`Could not reload tab ${tab.id}`, e);
-      }
-    }
-  }
+  await Promise.all(
+    tabs.map((tab) => (tab.id ? reloadTab(tab.id) : Promise.resolve()))
+  );
 }
